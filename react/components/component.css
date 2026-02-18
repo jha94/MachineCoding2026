@@ -1,0 +1,8 @@
+.carousal {
+    height: 50dvh;
+    width: 50dvw;
+    background-color: gray;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
