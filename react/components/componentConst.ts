@@ -1,10 +1,10 @@
 export const carousalComps = [{
-    key: 1,
+    key: 0,
     name: 'First'
 }, {
-    key: 2,
+    key: 1,
     name: 'Second'
 }, {
-    key: 3,
+    key: 2,
     name: 'Third'
 }]
