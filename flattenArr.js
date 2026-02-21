@@ -15,17 +15,17 @@ const flatArr = (arr, level = Infinity) => {
     // }
     // flatten(arr)
 
-    const flatten = (arr, currentDepth) => {
-        for (let val of arr) {
-            if (Array.isArray(val) && currentDepth < level) {
-                flatten(val, currentDepth + 1)
-            } else {
-                res.push(val)
+    const flattenArr = (arr, depth) => {
+        for(let value of arr){
+            if(Array.isArray(value) && depth<level){
+                flattenArr(value, depth+1)
+            } else{
+                res.push(value)
             }
         }
     }
-    flatten(arr, 0)
+    flattenArr(arr, 0)
     return res
 }
 
-console.log(flatArr([1, [2], 3, [[4, 6], 5]], 4))
+console.log(flatArr([1, [2], 3, [[4, 6], 5]], 3))

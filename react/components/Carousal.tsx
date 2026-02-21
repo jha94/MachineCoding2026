@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './component.css';
 import { carousalComps } from '../components/componentConst'
 
@@ -40,8 +40,6 @@ const Carousal = () => {
 
 
     const move = (direction: direction) => {
-        console.log('in move');
-
         setActiveIndex(prev => {
             const next =
                 direction === 'forward' ? prev + 1 : prev - 1;
