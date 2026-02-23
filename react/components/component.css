@@ -43,3 +43,10 @@
     color: black;
     border: 0px;
 }
+
+.accordianWrapper{
+    cursor: pointer;
+    :hover{
+        background-color: rgb(230, 253, 246);
+    }
+}
