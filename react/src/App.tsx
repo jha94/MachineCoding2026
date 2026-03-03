@@ -4,6 +4,7 @@ function App() {
   const Carousal = lazy(() => import('../components/Carousal'))
   const Toast = lazy(() => import('../components/Toast'))
   const Accordian = lazy(() => import('../components/Accordian'))
+  const NestedComment = lazy(() => import('../components/NestedComment'))
 
   const accordianComps = [{
         key:0,
@@ -25,7 +26,8 @@ function App() {
   return (
     <Suspense fallback={<p>loading</p>} >
       {/* <Toast message={'alert'} duration={5000} position={'bottom'} type={'success'} /> */}
-      <Accordian accordianComps={accordianComps}/>
+      {/* <Accordian accordianComps={accordianComps}/> */}
+      <NestedComment/>
     </Suspense>
   )
 }

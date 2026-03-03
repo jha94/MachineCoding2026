@@ -50,3 +50,32 @@
         background-color: rgb(230, 253, 246);
     }
 }
+
+.commentWrapper{
+    display: flex;
+    flex-direction: column;
+}
+.commentInput{
+    height: 40px;
+    width: 400px
+}
+
+.commentBtnWrapper{
+    margin-top: 10px;
+    display: flex;
+    align-self: flex-end;
+    gap: 10px;
+}
+
+.commentList{
+    margin-top: 10px;
+    padding-left: 40px;
+    padding-left: 10px;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.addReply{
+    display: flex;
+    justify-content: space-between;
+}
