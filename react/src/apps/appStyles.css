@@ -1,0 +1,8 @@
+.accordianWrap{
+    background-color: aliceblue;
+    padding: 5px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 250px;
+}
