@@ -1,18 +1,39 @@
-.accordianWrap{
-    background-color: aliceblue;
-    padding: 5px;
-    margin: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 250px;
+.accordianWrap {
+  background-color: aliceblue;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 250px;
 }
 
-.carouselWrapper{
-    height: 50vh;
-    width: 60dvw;
-    background-color: rgb(200, 199, 199);
-    border-radius: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.carouselWrapper {
+  height: 50vh;
+  width: 60dvw;
+  background-color: rgb(200, 199, 199);
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toastWrapper {
+  position: fixed;
+  right: 0;
+  height: 50px;
+  width: 20dvw;
+  background-color: gray;
+  padding-left: 10px;
+  border-radius: 10px 0px 0px 10px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.toast-top {
+  top: 10px;
+}
+
+.toast-bottom {
+  bottom: 10px;
 }
