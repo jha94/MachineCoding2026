@@ -37,3 +37,31 @@
 .toast-bottom {
   bottom: 10px;
 }
+
+.commentInput {
+  height: 30px;
+  width: 25dvw;
+}
+
+.commentBtn {
+  height: 35px;
+  margin: 10px;
+  padding: 10px;
+  width: 7dvw;
+  text-align: center;
+}
+
+.replyBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.reply {
+  height: 20px;
+  margin-left: 30px;
+}
+
+.replyInput{
+  margin-left: 20px;
+}
