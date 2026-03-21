@@ -1,134 +1,124 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "../appStyles.css";
+
 const Comment = () => {
   const [comment, setComment] = useState("");
   const [commentTree, setCommentTree] = useState([]);
+  const [replyParentInd, setReplyParentInd] = useState();
   const [reply, setReply] = useState("");
-  const [replyInd, setReplyInd] = useState();
 
-  useEffect(() => {
-    console.log("commentTree", commentTree);
-  }, [commentTree]);
-
-  const addReply = (commentTree = [], parentId) => {
-    return commentTree.map((comment) => {
-      if (comment.id === parentId) {
+  const addReply = (replyParentInd, commentTree = []) => {
+    return (
+      commentTree.length &&
+      commentTree.map((comment) => {
+        if (comment.id === replyParentInd) {
+          return {
+            ...comment,
+            replies: [
+              ...comment.replies,
+              {
+                value: reply,
+                id: new Date().getTime(),
+                replies: [],
+              },
+            ],
+          };
+        }
         return {
           ...comment,
-          replies: [
-            ...comment.replies,
-            {
-              id: new Date().getTime(),
-              value: reply,
-              replies: [],
-            },
-          ],
+          replies: addReply(replyParentInd, comment.replies),
         };
-      }
-      return {
-        ...comment,
-        replies: addReply(comment.replies, parentId),
-      };
-    });
+      })
+    );
   };
 
-  const handleClick = (eventType, parentId) => {
-    if (eventType === "comment") {
-      setCommentTree((prev) => [
-        ...prev,
-        {
-          id: new Date().getTime(),
-          value: comment,
-          replies: [],
-        },
-      ]);
+  const handleOnClick = (type) => {
+    if (type === "comment") {
+      setCommentTree((prev) => {
+        return [
+          ...prev,
+          {
+            value: comment,
+            id: new Date().getTime(),
+            replies: [],
+          },
+        ];
+      });
       setComment("");
     }
-    if (eventType === "reply") {
-      const updatedCommentTree = addReply(commentTree, parentId);
+    if (type === "reply") {
+      const updatedCommentTree = addReply(replyParentInd, commentTree);
       setCommentTree([...updatedCommentTree]);
-      setReplyInd(null);
-      setReply("");
+      setReply();
+      setReplyParentInd();
     }
   };
 
-  const renderCommentInput = () => {
+  const renderCommentUI = () => {
     return (
-      <>
+      <div>
         <input
           type="text"
           className="commentInput"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />
-        <button className="commentBtn" onClick={() => handleClick("comment")}>
+        <button className="commentBtn" onClick={() => handleOnClick("comment")}>
           Comment
         </button>
-      </>
+      </div>
     );
   };
 
-  const renderReplyInput = (parentId) => {
+  const renderReplyUI = () => {
     return (
-      <div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
         <input
           type="text"
           className="commentInput"
           value={reply}
           onChange={(e) => setReply(e.target.value)}
         />
-        <div>
-          <button className="commentBtn" onClick={() => setReplyInd(null)}>
-            Cancel
-          </button>
-          <button
-            className="commentBtn"
-            onClick={() => handleClick("reply", parentId)}
-          >
-            Reply
-          </button>
-        </div>
-      </div>
-    );
-  };
-  const renderComments = (commentTree) => {
-    return (
-      <div>
-        {commentTree?.length
-          ? commentTree.map((comment) => {
-              const { id, value, replies = [] } = comment;
-              return (
-                <div>
-                  <p>{value}</p>
-                  {replyInd === id ? (
-                    <div
-                      style={{
-                        marginLeft: "20px",
-                      }}
-                    >
-                      {renderReplyInput(id)}
-                    </div>
-                  ) : (
-                    <button onClick={() => setReplyInd(id)}>💬</button>
-                  )}
-                  <div
-                    style={{
-                      marginLeft: "40px",
-                    }}
-                  >
-                    {replies.map((reply) => renderComments([reply]))}
-                  </div>
-                </div>
-              );
-            })
-          : null}
+        <button className="commentBtn" onClick={() => handleOnClick("reply")}>
+          Reply
+        </button>
+        <button className="commentBtn" onClick={() => setReplyParentInd()}>
+          Cancel
+        </button>
       </div>
     );
   };
 
+  const renderComments = (commentTree) => {
+    return commentTree.map((comment) => {
+      return (
+        <div
+          style={{
+            marginLeft: "20px",
+          }}
+        >
+          <p>{comment.value}</p>
+          {comment.id === replyParentInd ? (
+            renderReplyUI()
+          ) : (
+            <div onClick={() => setReplyParentInd(comment.id)}>💬</div>
+          )}
+          {comment?.replies?.length
+            ? comment.replies.map((reply) => renderComments([reply]))
+            : null}
+        </div>
+      );
+    });
+  };
+
   return (
     <div>
-      {renderCommentInput()}
+      {renderCommentUI()}
       {renderComments(commentTree)}
     </div>
   );
