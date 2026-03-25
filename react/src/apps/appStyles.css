@@ -41,6 +41,10 @@
 .commentInput {
   height: 30px;
   width: 25dvw;
+  font-size: 20px;
+  padding-left: 10px;
+  border-radius: 5px;
+  border: 1px solid grey;
 }
 
 .commentBtn {
@@ -62,6 +66,15 @@
   margin-left: 30px;
 }
 
-.replyInput{
+.replyInput {
   margin-left: 20px;
+}
+
+.task {
+  display: flex;
+  flex-direction: row;
+  max-height: 20px;
+  align-items: center;
+  width: 200px;
+  gap: 20px;
 }

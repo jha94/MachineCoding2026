@@ -7,6 +7,7 @@ const Carousel = lazy(() => import("./apps/carousel/Carousel"));
 const Toast = lazy(() => import("./apps/toast/Toast"));
 const Comment = lazy(() => import("./apps/nestedComment/Comment"));
 const Rating = lazy(() => import("./apps/rating/Rating"));
+const ToDoList = lazy(() => import("./apps/toDoList/ToDo"));
 
 function App() {
   const [activeAccordian, setActiveAccordian] = useState(0);
@@ -21,7 +22,8 @@ function App() {
       {/* <Carousel carouselItems={carouselItems}/> */}
       {/* <Toast content={<p>Toast</p>} position={'bottom'} notificationTime={3000}/> */}
       {/* <Comment /> */}
-      <Rating/>
+      {/* <Rating/> */}
+      <ToDoList />
     </Suspense>
   );
 }
