@@ -8,6 +8,8 @@ const Toast = lazy(() => import("./apps/toast/Toast"));
 const Comment = lazy(() => import("./apps/nestedComment/Comment"));
 const Rating = lazy(() => import("./apps/rating/Rating"));
 const ToDoList = lazy(() => import("./apps/toDoList/ToDo"));
+const ListHighlight = lazy(() => import("./apps/highlight/ListHighlight"));
+const Frame = lazy(() => import("./apps/photoGallery/Frame"));
 
 function App() {
   const [activeAccordian, setActiveAccordian] = useState(0);
@@ -23,7 +25,9 @@ function App() {
       {/* <Toast content={<p>Toast</p>} position={'bottom'} notificationTime={3000}/> */}
       {/* <Comment /> */}
       {/* <Rating/> */}
-      <ToDoList />
+      {/* <ToDoList /> */}
+      {/* <ListHighlight/> */}
+      <Frame />
     </Suspense>
   );
 }

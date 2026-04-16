@@ -78,3 +78,32 @@
   width: 200px;
   gap: 20px;
 }
+
+.emptyFrame{
+  width: 20dvw;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.frameWrapper{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  height: 80dvh;
+  width: 95dvw;
+  align-items: center;
+}
+
+.frame{
+  height: 100%;
+}
+
+.frameBtn{
+  height: 30px;
+  width: 5dvw;
+  margin: 10px;
+  border-radius: 10px;
+  border: 1px solid ;
+}
