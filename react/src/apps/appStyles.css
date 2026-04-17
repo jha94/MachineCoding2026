@@ -79,7 +79,7 @@
   gap: 20px;
 }
 
-.emptyFrame{
+.emptyFrame {
   width: 20dvw;
   height: 20px;
   display: flex;
@@ -87,7 +87,7 @@
   align-items: center;
 }
 
-.frameWrapper{
+.frameWrapper {
   display: flex;
   justify-content: center;
   flex-direction: row;
@@ -96,14 +96,23 @@
   align-items: center;
 }
 
-.frame{
+.frame {
   height: 100%;
 }
 
-.frameBtn{
+.frameBtn {
   height: 30px;
   width: 5dvw;
   margin: 10px;
   border-radius: 10px;
-  border: 1px solid ;
+  border: 1px solid;
+}
+
+.newsCard {
+  height: 50px;
+  width: 50dvw;
+  background-color: aliceblue;
+  margin: 20px;
+  padding: 10px;
+  border-radius: 10px;
 }
