@@ -5,9 +5,7 @@ const person = {
   },
 };
 const deepClone = (obj) => {
-  if (obj === null || typeof obj !== "object") {
-    return obj;
-  }
+  if (obj === null || typeof obj !== "object") return obj;
   const res = Array.isArray(obj) ? [] : {};
   for (let key in obj) {
     res[key] = deepClone(obj[key]);
