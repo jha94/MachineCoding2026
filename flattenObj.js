@@ -18,18 +18,19 @@ const details = {
   job_dept_name: "software",
 };
 
-const flattenObj = (obj) => {
-  const deatils = {};
-  const flat = (obj, id) => {
-    for (let [key, value] of Object.entries(obj)) {
+const flattenObj = (object) => {
+  let flatObj = {};
+  const flat = (object, prefix) => {
+    for (let [key, value] of Object.entries(object)) {
       if (typeof value === "object") {
-        flat(value, `${id}_${key}`);
+        flat(value, prefix ? `${prefix}_${key}` : key);
       } else {
-        deatils[`${id}_${key}`] = value;
+        flatObj[prefix ? `${prefix}_${key}` : key] = value;
       }
     }
   };
-  flat(obj, "person");
-  return deatils;
+  flat(object, "");
+  return flatObj;
 };
+
 console.log(flattenObj(person));

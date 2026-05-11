@@ -1,15 +1,16 @@
 const flattenArr = (arr, depth) => {
-  let result = [];
-  const flat = (arr, currentDepth) => {
+  let flatArr = [];
+  const flat = (arr, depth) => {
     for (let element of arr) {
-      if (Array.isArray(element) && currentDepth < depth) {
-        flat(element, currentDepth + 1);
+      if (Array.isArray(element) && depth) {
+        flat(element, depth - 1);
       } else {
-        result.push(element);
+        flatArr.push(element);
       }
     }
   };
-  flat(arr, 0);
-  return result;
+  flat(arr, depth);
+  return flatArr;
 };
-console.log(flattenArr([1, [2], 3, [[4, 6], 5]], 0));
+
+console.log(flattenArr([1, [2], 3, [[4, 6], 5]], 6));

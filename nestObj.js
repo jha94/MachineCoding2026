@@ -1,28 +1,27 @@
-const nestObj = (objList) => {
-  const nestedObj = [];
-  const nest = (objList) => {
-    objList.map((obj) => {
-      if (!obj["parentId"]) {
-        nestedObj.push({
-          id: obj.id,
-          name: obj.name,
+const nestObj = (flatObjectArr) => {
+  let nestedObjArr = [];
+  const nest = (flatObjectArr) => {
+    flatObjectArr.map((flatObj) => {
+      if (!flatObj["parentId"]) {
+        nestedObjArr.push({
+          id: flatObj.id,
+          name: flatObj.name,
           children: [],
         });
       } else {
-        nestedObj.map((obj1) => {
-          if (obj1.id === obj.parentId) {
-            return obj1.children.push({
-              id: obj.id,
-              name: obj.name,
-              children: [],
+        nestedObjArr.map((nestedObj) => {
+          if (nestedObj.id === flatObj.parentId) {
+            nestedObj.children.push({
+              id: flatObj.id,
+              name: flatObj.name,
             });
           }
         });
       }
     });
   };
-  nest(objList);
-  return nestedObj;
+  nest(flatObjectArr);
+  return nestedObjArr;
 };
 
 const nestedObj = nestObj([

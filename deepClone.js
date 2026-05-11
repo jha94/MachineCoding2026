@@ -4,13 +4,15 @@ const person = {
     state: "bihar",
   },
 };
-const deepClone = (obj) => {
-  if (obj === null || typeof obj !== "object") return obj;
-  const res = Array.isArray(obj) ? [] : {};
-  for (let key in obj) {
-    res[key] = deepClone(obj[key]);
+
+const deepClone = (object) => {
+  if (object === null || typeof object !== "object") return object;
+  let result = Array.isArray(object) ? [] : {};
+  for (let key in object) {
+    result[key] = deepClone(object[key]);
   }
-  return res;
+  return result;
 };
+
 const res = deepClone(person);
 console.log(res);

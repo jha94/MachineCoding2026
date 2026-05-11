@@ -1,15 +1,5 @@
-// const curry = (a) => (b) => b?curry(a+b):a
-// const curry = (a) => {
-//     return (b) => {
-//         return b ? curry(a + b) : a
-//     }
-// }
-// function curry (a){
-//     return function subCurry(b){
-//         return b?curry(a+b):a
-//     }
-// }
-// console.log(curry(1)(2)(20)(2)())
+const curry = (a) => (b) => (b ? curry(a + b) : a);
+console.log(curry(1)(2)(20)(2)());
 
 // const sum = (a) => {
 //     const inner = (b) => sum(a+b)
@@ -38,6 +28,3 @@
 // console.log(cSum(1)(2));
 // console.log(cSum(1)(2)(3));
 // console.log(cSum(1)(2, 3));
-
-
-
