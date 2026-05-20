@@ -1,16 +1,3 @@
-.bodyWrap{
-    position: relative;
+.body{
     display: inline-block;
-}
-
-.suggestionContainer{
-    display: none;
-    max-height: 300px;
-    overflow-y: scroll;
-    border: 1px solid grey;
-}
-
-.suggestionVisible{
-    display: block;
-    margin-top: 4px;
 }

@@ -1,6 +1,5 @@
-import { FRUITS } from "./constant.js";
+import { FRUITS } from "./constants.js";
 const getSuggestions = (keyword) => {
-  // return FRUITS.filter(fruit=>fruit.substring(0, keyword.length).toLocaleLowerCase()===keyword.toLocaleLowerCase())
   return new Promise((res, rej) => {
     setTimeout(() => {
       res(
@@ -14,12 +13,12 @@ const getSuggestions = (keyword) => {
   });
 };
 
-const debounce = function (callback, delay = 1000) {
-  let timerID;
+const debounce = function (callback, delay = 500) {
+  let timerId;
   return function (...args) {
-    clearTimeout(timerID);
-    const context = this;
-    timerID = setTimeout(() => {
+    let context = this;
+    clearTimeout(timerId);
+    timerId = setTimeout(() => {
       callback.apply(context, args);
     }, delay);
   };

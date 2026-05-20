@@ -1,53 +1,50 @@
 import { getSuggestions, debounce } from "./utils.js";
 
-const inputBox = document.getElementById("searchInput");
-const suggestionBox = document.getElementById("suggestionWrapper");
+// we can add abort controller to cancel prev API call
+// if suggestion list is huge, we can add intersection observer
 
-const resetState = () => {
-  suggestionBox.classList.remove("suggestionVisible");
+const inputBox = document.getElementById("searchInput");
+const suggestionBox = document.getElementById("suggestionWrap");
+
+const clearSuggestions = () => {
+  return (suggestionBox.innerHTML = "");
 };
 
-const renderDropdownItems = (list) => {
-  const suggFrag = document.createDocumentFragment();
-  list.forEach((suggestion) => {
-    const el = document.createElement("div");
-    el.innerHTML = suggestion;
-    el.classList.add("dropdown");
-    el.setAttribute("data-key", suggestion);
-    suggFrag.appendChild(el);
+const appendSuggestions = (suggestions) => {
+  const fragment = document.createDocumentFragment();
+  suggestions.forEach((suggestion) => {
+    const suggestionDiv = document.createElement("div");
+    suggestionDiv.innerHTML = suggestion;
+    suggestionDiv.setAttribute("data-key", suggestion);
+    fragment.appendChild(suggestionDiv);
   });
   suggestionBox.innerHTML = "";
-  suggestionBox.appendChild(suggFrag);
+  suggestionBox.appendChild(fragment);
 };
 
-const handleSearch = async (keyword) => {
+const getSuggestionList = async (keyword) => {
   const suggestions = await getSuggestions(keyword);
-  console.log("suggestions", suggestions);
-
   if (suggestions.length) {
-    suggestionBox.classList.add("suggestionVisible");
-    renderDropdownItems(suggestions);
+    appendSuggestions(suggestions);
   }
 };
 
-const handleInputChange = (e) => {
-  const value = e.target.value;
+const handleChange = (event) => {
+  const value = event?.target?.value;
   if (value) {
-    handleSearch(value);
+    getSuggestionList(value);
   } else {
-    resetState();
+    clearSuggestions();
   }
 };
 
 const handleSelect = (event) => {
   const { key } = event.target.dataset;
-  if (key) {
-    inputBox.value = key;
-    resetState();
-  }
+  inputBox.value = key;
+  clearSuggestions();
 };
 
 (() => {
-  inputBox.addEventListener("input", debounce(handleInputChange));
+  inputBox.addEventListener("input", debounce(handleChange));
   suggestionBox.addEventListener("click", handleSelect);
 })();
