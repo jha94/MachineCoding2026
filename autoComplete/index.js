@@ -1,50 +1,43 @@
-import { getSuggestions, debounce } from "./utils.js";
+import { debounce, getSuggestions } from "./utils.js";
 
-// we can add abort controller to cancel prev API call
-// if suggestion list is huge, we can add intersection observer
-
-const inputBox = document.getElementById("searchInput");
-const suggestionBox = document.getElementById("suggestionWrap");
-
-const clearSuggestions = () => {
-  return (suggestionBox.innerHTML = "");
+const searchInput = document.getElementById("searchInput");
+const suggestionWrap = document.getElementById("suggestionWrap");
+const clearSuggestion = () => {
+  suggestionWrap.innerHTML = "";
 };
-
-const appendSuggestions = (suggestions) => {
-  const fragment = document.createDocumentFragment();
-  suggestions.forEach((suggestion) => {
-    const suggestionDiv = document.createElement("div");
-    suggestionDiv.innerHTML = suggestion;
-    suggestionDiv.setAttribute("data-key", suggestion);
-    fragment.appendChild(suggestionDiv);
-  });
-  suggestionBox.innerHTML = "";
-  suggestionBox.appendChild(fragment);
-};
-
-const getSuggestionList = async (keyword) => {
-  const suggestions = await getSuggestions(keyword);
-  if (suggestions.length) {
-    appendSuggestions(suggestions);
-  }
-};
-
-const handleChange = (event) => {
-  const value = event?.target?.value;
+const listSuggestions = async (e) => {
+  const value = e.target.value;
   if (value) {
-    getSuggestionList(value);
+    const results = await getSuggestions(e.target.value);
+    console.log(results);
+
+    if (results.length) {
+      appendSuggestions(results);
+    }
   } else {
-    clearSuggestions();
+    clearSuggestion();
   }
 };
 
-const handleSelect = (event) => {
-  const { key } = event.target.dataset;
-  inputBox.value = key;
-  clearSuggestions();
+const appendSuggestions = (results) => {
+  const fragment = document.createDocumentFragment();
+  results.map((result) => {
+    const div = document.createElement("div");
+    div.innerHTML = result;
+    div.setAttribute("data-key", result);
+    fragment.appendChild(div);
+  });
+  suggestionWrap.innerHTML = "";
+  suggestionWrap.appendChild(fragment);
+};
+
+const setSuggestion = (e) => {
+  const { key } = e.target.dataset;
+  searchInput.value = key;
+  clearSuggestion();
 };
 
 (() => {
-  inputBox.addEventListener("input", debounce(handleChange));
-  suggestionBox.addEventListener("click", handleSelect);
+  searchInput.addEventListener("input", debounce(listSuggestions));
+  suggestionWrap.addEventListener("click", setSuggestion);
 })();

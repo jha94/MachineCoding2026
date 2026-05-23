@@ -9,19 +9,19 @@ const getSuggestions = (keyword) => {
             keyword.toLocaleLowerCase(),
         ),
       );
-    }, 1000);
+    }, 500);
   });
 };
 
-const debounce = function (callback, delay = 500) {
+function debounce(callback, delay = 500) {
   let timerId;
   return function (...args) {
-    let context = this;
+    const context = this;
     clearTimeout(timerId);
     timerId = setTimeout(() => {
       callback.apply(context, args);
     }, delay);
   };
-};
+}
 
 export { getSuggestions, debounce };
