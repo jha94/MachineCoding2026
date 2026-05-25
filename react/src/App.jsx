@@ -10,7 +10,9 @@ const Rating = lazy(() => import("./apps/rating/Rating"));
 const ToDoList = lazy(() => import("./apps/toDoList/ToDo"));
 const ListHighlight = lazy(() => import("./apps/highlight/ListHighlight"));
 const Frame = lazy(() => import("./apps/photoGallery/Frame"));
-const NewsFeed = lazy(()=>import('./apps/newsFeed/Feed'))
+const NewsFeed = lazy(() => import("./apps/newsFeed/Feed"));
+const ProgressBar = lazy(() => import("./apps/progressBar/ProgressBar"));
+const BreadCrumb = lazy(() => import("./apps/breadCrumb/BreadCrumb"));
 
 function App() {
   const [activeAccordian, setActiveAccordian] = useState(0);
@@ -29,7 +31,9 @@ function App() {
       {/* <ToDoList /> */}
       {/* <ListHighlight/> */}
       {/* <Frame /> */}
-      <NewsFeed/>
+      {/* <NewsFeed/> */}
+      {/* <ProgressBar/> */}
+      <BreadCrumb />
     </Suspense>
   );
 }
