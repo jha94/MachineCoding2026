@@ -1,2 +1,3 @@
-const FRUITS = ["Mango", "Grapes", "Apple", "Avocado", "Lichi", "Berry"];
+const FRUITS = ["Apple", "avocado", "banana", "mango", "berry", "grapes"];
+
 export { FRUITS };

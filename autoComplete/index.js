@@ -1,39 +1,45 @@
-import { getSuggestions } from "./utils.js";
-const searchInput = document.getElementById("searchInput");
-const suggestionsWrap = document.getElementById("suggestion");
+import { getSuggestion, debounce } from "./utils.js";
 
-const fetchSuggestions = async (searchKey) => {
-  const searchSuggestions = await getSuggestions(searchKey);
-  if (searchSuggestions.length) {
+const searchInput = document.getElementById("searchInput");
+const suggestionWrap = document.getElementById("suggestionWrap");
+
+const clearSuggestion = () => {
+  suggestionWrap.classList.remove("suggestion-visible");
+  suggestionWrap.innerHTML = "";
+};
+
+const listSuggestions = async (value) => {
+  const suggestions = await getSuggestion(value);
+  if (suggestions.length) {
     const fragment = document.createDocumentFragment();
-    searchSuggestions.map((value) => {
+    suggestions.forEach((suggestion) => {
       const div = document.createElement("div");
-      div.innerHTML = value;
-      div.setAttribute("data-key", value);
-      suggestionsWrap.classList.add('suggestionVisible')
+      div.innerHTML = suggestion;
+      div.setAttribute("data-key", suggestion);
+      suggestionWrap.classList.add("suggestion-visible");
       fragment.appendChild(div);
     });
-    suggestionsWrap.innerHTML = "";
-    suggestionsWrap.appendChild(fragment);
+    suggestionWrap.innerHTML = "";
+    suggestionWrap.appendChild(fragment);
   }
 };
 
-const onType = (e) => {
-  const value = e.target.value;
-  if (value) {
-    fetchSuggestions(value);
+const handleSearch = (e) => {
+  let { value } = e.target;
+  if (value.trim()) {
+    listSuggestions(value);
   } else {
-    suggestionsWrap.classList.remove('suggestionVisible')
+    clearSuggestion();
   }
 };
 
-const appendResult = (e) => {
+const appendSuggestion = (e) => {
   const { key } = e.target.dataset;
   searchInput.value = key;
-  suggestionsWrap.classList.remove('suggestionVisible')
+  clearSuggestion();
 };
 
 (() => {
-  searchInput.addEventListener("input", onType);
-  suggestionsWrap.addEventListener("click", appendResult);
+  searchInput.addEventListener("input", debounce(handleSearch));
+  suggestionWrap.addEventListener("click", appendSuggestion);
 })();

@@ -2,13 +2,13 @@
     display: inline-block;
 }
 
-.suggestionWrap{
+.suggestion{
     display: none;
-    height: 100px;
+    max-height: 200px;
     overflow-y: scroll;
-    border: 1px solid brown;
+    border: 1px solid grey;
 }
 
-.suggestionVisible{
+.suggestion-visible{
     display: block;
 }
