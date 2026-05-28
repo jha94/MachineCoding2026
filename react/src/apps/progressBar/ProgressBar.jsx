@@ -1,64 +1,66 @@
-import { memo, useEffect, useState } from "react";
-const MAX_STEPS = 10;
-const TICK_RATE_MS = 1000;
+import { memo, useState, useEffect } from "react";
+
+const MAX_STEP = 10;
+const DELAY = 1000;
 
 const ProgressBar = () => {
   const [progress, setProgress] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
-    if (!isRunning || progress >= MAX_STEPS) return;
-    const timerId = setInterval(() => {
-      setProgress((prevCount) => {
-        return prevCount < MAX_STEPS ? prevCount + 1 : prevCount;
+    if (!isRunning || progress >= MAX_STEP) return;
+    let timer;
+    timer = setInterval(() => {
+      setProgress((prevValue) => {
+        return prevValue < MAX_STEP ? prevValue + 1 : prevValue;
       });
-    }, TICK_RATE_MS);
-    return () => clearInterval(timerId);
+    }, DELAY);
+    return () => clearInterval(timer);
   }, [isRunning]);
 
   const handleReset = () => {
-    setProgress(0);
     setIsRunning(false);
+    setProgress(0);
   };
-
-  const isCompleted = progress >= MAX_STEPS;
 
   return (
     <div>
       <h2>ProgressBar</h2>
       <div
         style={{
-          width: "300px",
           height: "20px",
+          width: "300px",
           border: "1px solid grey",
           borderRadius: "10px",
         }}
       >
         <div
           style={{
-            width: `${progress * 10}%`,
             height: "100%",
-            borderRadius: "10px",
+            width: `${progress * 10}%`,
             backgroundColor: "lightgreen",
-            transition: isRunning && "width 1s linear",
-            willChange: "width",
+            borderRadius: "10px",
+            transition: "width 1s linear",
           }}
         ></div>
       </div>
-      <div style={{ marginTop: "12px", display: "flex", gap: "8px" }}>
-        <button
-          disabled={isRunning || isCompleted}
-          onClick={() => setIsRunning(true)}
-        >
+      <div
+        style={{
+          display: "flex",
+          marginTop: "10px",
+          gap: "8px",
+        }}
+      >
+        <button disabled={progress > 0} onClick={() => setIsRunning(true)}>
           Start
         </button>
         <button
-          disabled={!isRunning || isCompleted}
+          disabled={progress < 1 || progress >= MAX_STEP}
           onClick={() => setIsRunning(false)}
         >
           Stop
         </button>
-        <button disabled={progress === 0} onClick={handleReset}>
+        <button disabled={progress < 1} onClick={handleReset}>
           Reset
         </button>
       </div>

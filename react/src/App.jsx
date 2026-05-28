@@ -32,8 +32,8 @@ function App() {
       {/* <ListHighlight/> */}
       {/* <Frame /> */}
       {/* <NewsFeed/> */}
-      {/* <ProgressBar/> */}
-      <BreadCrumb />
+      <ProgressBar/>
+      {/* <BreadCrumb /> */}
     </Suspense>
   );
 }
