@@ -13,6 +13,7 @@ const Frame = lazy(() => import("./apps/photoGallery/Frame"));
 const NewsFeed = lazy(() => import("./apps/newsFeed/Feed"));
 const ProgressBar = lazy(() => import("./apps/progressBar/ProgressBar"));
 const BreadCrumb = lazy(() => import("./apps/breadCrumb/BreadCrumb"));
+const StopWatch = lazy(() => import("./apps/stopWatch/StopWatch"));
 
 function App() {
   const [activeAccordian, setActiveAccordian] = useState(0);
@@ -32,8 +33,9 @@ function App() {
       {/* <ListHighlight/> */}
       {/* <Frame /> */}
       {/* <NewsFeed/> */}
-      <ProgressBar/>
-      {/* <BreadCrumb /> */}
+      {/* <ProgressBar/> */}
+      <BreadCrumb />
+      {/* <StopWatch/> */}
     </Suspense>
   );
 }
