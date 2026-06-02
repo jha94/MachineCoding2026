@@ -23,15 +23,14 @@ import { useState } from "react";
 const BreadCrumb = () => {
   const [path, setPath] = useState([]);
 
-  const getCurrentNode = (path) => {
+  const getCurrentPath = (path) => {
     let node = folderData;
-    for (let value of path) {
-      node = node.children[value];
+    for (let key of path) {
+      node = node.children[key];
     }
     return node;
   };
-
-  const currentNode = getCurrentNode(path);
+  const currentPath = getCurrentPath(path);
 
   return (
     <div>
@@ -40,16 +39,20 @@ const BreadCrumb = () => {
         style={{
           display: "flex",
           flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         {folderData.name}
-        {path.map((value, index) => {
-          return (
-            <p onClick={() => setPath(() => path.slice(0, index))}>
-              \ {`${value}`}
-            </p>
-          );
-        })}
+        {path.map((value, index) => (
+          <p
+            onClick={() => {
+              setPath(path.slice(0, index));
+            }}
+          >
+            \ {`${value}`}
+          </p>
+        ))}
       </nav>
       <div
         style={{
@@ -58,22 +61,25 @@ const BreadCrumb = () => {
           gap: "10px",
         }}
       >
-        {currentNode?.children && Object.keys(currentNode.children).length
-          ? Object.keys(currentNode.children).map((val) => {
-              return (
-                <p
-                  onClick={() => {
-                    setPath((prev) => [...prev, val]);
-                  }}
-                >
-                  {currentNode.children[val].name}
-                </p>
-              );
-            })
-          : "No Data Found"}
+        {Object.keys(currentPath.children).length ? (
+          Object.keys(currentPath.children).map((value) => {
+            return (
+              <p
+                onClick={() => {
+                  setPath([...path, value]);
+                }}
+              >
+                {" "}
+                {currentPath.children[value].name}
+              </p>
+            );
+          })
+        ) : (
+          <p>No Data Found</p>
+        )}
       </div>
     </div>
   );
 };
 
-export default memo(BreadCrumb);
+export default BreadCrumb;
