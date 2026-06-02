@@ -14,6 +14,7 @@ const NewsFeed = lazy(() => import("./apps/newsFeed/Feed"));
 const ProgressBar = lazy(() => import("./apps/progressBar/ProgressBar"));
 const BreadCrumb = lazy(() => import("./apps/breadCrumb/BreadCrumb"));
 const StopWatch = lazy(() => import("./apps/stopWatch/StopWatch"));
+const DynamicGrid = lazy(() => import("./apps/dynamicGrid/DynamicGrid"));
 
 function App() {
   const [activeAccordian, setActiveAccordian] = useState(0);
@@ -34,8 +35,9 @@ function App() {
       {/* <Frame /> */}
       {/* <NewsFeed/> */}
       {/* <ProgressBar/> */}
-      <BreadCrumb />
+      {/* <BreadCrumb /> */}
       {/* <StopWatch/> */}
+      <DynamicGrid/>
     </Suspense>
   );
 }
