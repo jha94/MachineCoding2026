@@ -1,0 +1,15 @@
+.hidden {
+  display: none;
+}
+
+.shown {
+  display: block;
+}
+
+.task {
+  display: flex;
+}
+
+.textStrike {
+  text-decoration: line-through;
+}
