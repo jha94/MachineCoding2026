@@ -1,73 +1,68 @@
-import { memo, useEffect, useState, useRef, useCallback } from "react";
+import { memo, useState, useEffect, useRef, useCallback } from "react";
 import "../appStyles.css";
+
 const Feed = () => {
-  const [newsList, setNewsList] = useState([]);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(0);
+  const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    const controller = new AbortController();
     const getNews = async () => {
-      setLoading(true);
-      const response = await fetch(
-        `https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=10`,
-      );
-      setLoading(false);
-      const news = await response.json();
-      if (news.length === 0) {
-        return setHasMore(false);
+      try {
+        setLoading(true);
+        const response = await fetch(
+          `https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=10`,
+          { signal: controller.signal },
+        );
+        const data = await response.json();
+        setNews((prev) => [...prev, ...data]);
+      } catch (err) {
+        throw new Error("Error while fetching news");
+      } finally {
+        setLoading(false);
       }
-      setNewsList((prev) => [...prev, ...news]);
     };
     getNews();
+    return () => {
+      controller.abort();
+      elementRef.current.disconnect()
+    }
   }, [page]);
 
-  const observerRef = useRef();
-
-  useEffect(() => {
-    return () => observerRef.current?.disconnect();
-  }, []);
-
-  const lastPostElementRef = useCallback(
+  const elementRef = useRef();
+  const lastElementRef = useCallback(
     (node) => {
+      // if data is already loading, don't do anything
       if (loading) return;
-      if (observerRef.current) observerRef.current.disconnect();
-      observerRef.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          setPage((prevPage) => prevPage + 1);
+      // clear the existing observer
+      if (elementRef.current) elementRef.current.disconnect();
+      elementRef.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((page) => page + 1);
         }
       });
-      if (node) observerRef.current.observe(node);
+      if (node) elementRef.current.observe(node);
     },
-    [loading, hasMore],
+    [loading],
   );
 
-  if (newsList.length === 0 && loading) {
-    return "Loading...";
-  }
-
   return (
-    <>
-      {newsList.map((news, index) => {
-        if (newsList.length === index + 1) {
-          return (
-            <div key={news.id}>
-              <article ref={lastPostElementRef} className="newsCard">
-                <p>{news.body}</p>
-              </article>
-            </div>
-          );
-        } else {
-          return (
-            <article key={news.id} className="newsCard">
-              <p>{news.body}</p>
-            </article>
-          );
-        }
+    <div>
+      <h2>Feed</h2>
+      {news.map((newsData, index) => {
+        return (
+          <p
+            ref={news.length === index + 1 ? lastElementRef : null}
+            style={{
+              marginBottom: "50px",
+            }}
+          >
+            {newsData.body}
+          </p>
+        );
       })}
-      {loading && <div>Loading more...</div>}
-      {!hasMore && <div>You are done with the day.</div>}
-    </>
+    </div>
   );
 };
 
