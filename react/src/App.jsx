@@ -16,7 +16,9 @@ const BreadCrumb = lazy(() => import("./apps/breadCrumb/BreadCrumb"));
 const StopWatch = lazy(() => import("./apps/stopWatch/StopWatch"));
 const DynamicGrid = lazy(() => import("./apps/dynamicGrid/DynamicGrid"));
 const UserDashboard = lazy(() => import("./apps/userDashboard/UserDashboard"));
-const Counter = lazy(()=>import('./apps/reducer/Counter'))
+const Counter = lazy(()=>import('./apps/reducer/Counter'));
+const Top = lazy(()=>import('./apps/context/Top'));
+
 function App() {
   const [activeAccordian, setActiveAccordian] = useState(0);
 
@@ -40,7 +42,8 @@ function App() {
       {/* <StopWatch/> */}
       {/* <DynamicGrid/> */}
       {/* <UserDashboard /> */}
-      <Counter/>
+      {/* <Counter/> */}
+      <Top/>
     </Suspense>
   );
 }
