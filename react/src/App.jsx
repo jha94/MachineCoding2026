@@ -18,6 +18,7 @@ const DynamicGrid = lazy(() => import("./apps/dynamicGrid/DynamicGrid"));
 const UserDashboard = lazy(() => import("./apps/userDashboard/UserDashboard"));
 const Counter = lazy(()=>import('./apps/reducer/Counter'));
 const Top = lazy(()=>import('./apps/context/Top'));
+const MultiProgress = lazy(()=>import('./apps/progressBar/MultiProgressBar'))
 
 function App() {
   const [activeAccordian, setActiveAccordian] = useState(0);
@@ -43,7 +44,8 @@ function App() {
       {/* <DynamicGrid/> */}
       {/* <UserDashboard /> */}
       {/* <Counter/> */}
-      <Top/>
+      {/* <Top/> */}
+      <MultiProgress/>
     </Suspense>
   );
 }
