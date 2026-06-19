@@ -1,26 +1,25 @@
 import { FRUITS } from "./constants.js";
-const getSuggestion = (keyword) => {
+
+const getSuggestions = (keyword) => {
   return new Promise((res, rej) => {
     setTimeout(() => {
       res(
-        FRUITS.filter(
-          (fruit) =>
-            fruit.substring(0, keyword.length).toLocaleLowerCase() ===
-            keyword.toLocaleLowerCase(),
+        FRUITS.filter((fruit) =>
+          fruit.toLocaleLowerCase().includes(keyword.toLocaleLowerCase()),
         ),
       );
-    }, 500);
+    }, 1000);
   });
 };
 
-function debounce(callback, delay=300) {
-  let timerId;
+function debounce(callback, delay = 500) {
+  let timer;
   return function (...args) {
-    clearTimeout(timerId);
-    timerId = setTimeout(() => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
       callback.apply(this, args);
     }, delay);
   };
 }
 
-export { getSuggestion, debounce };
+export { getSuggestions, debounce };

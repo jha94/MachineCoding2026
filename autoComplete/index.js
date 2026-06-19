@@ -1,45 +1,47 @@
-import { getSuggestion, debounce } from "./utils.js";
+import { getSuggestions, debounce } from "./utils.js";
 
-const searchInput = document.getElementById("searchInput");
-const suggestionWrap = document.getElementById("suggestionWrap");
+const input = document.getElementById("input");
+const suggestion = document.getElementById("suggestion");
 
-const clearSuggestion = () => {
-  suggestionWrap.classList.remove("suggestion-visible");
-  suggestionWrap.innerHTML = "";
+const listSuggestions = (suggestions) => {
+  const fragment = document.createDocumentFragment();
+  suggestions.forEach((suggestion) => {
+    const div = document.createElement("div");
+    div.innerHTML = suggestion;
+    // in data-test, tets can be anything
+    div.setAttribute("data-tets", suggestion);
+    fragment.appendChild(div);
+  });
+  suggestion.innerHTML = "";
+  suggestion.classList.add("visible");
+  suggestion.appendChild(fragment);
 };
 
-const listSuggestions = async (value) => {
-  const suggestions = await getSuggestion(value);
+const fetchSuggestions = async (keyword) => {
+  const suggestions = await getSuggestions(keyword);
   if (suggestions.length) {
-    const fragment = document.createDocumentFragment();
-    suggestions.forEach((suggestion) => {
-      const div = document.createElement("div");
-      div.innerHTML = suggestion;
-      div.setAttribute("data-key", suggestion);
-      suggestionWrap.classList.add("suggestion-visible");
-      fragment.appendChild(div);
-    });
-    suggestionWrap.innerHTML = "";
-    suggestionWrap.appendChild(fragment);
+    listSuggestions(suggestions);
   }
 };
 
-const handleSearch = (e) => {
-  let { value } = e.target;
-  if (value.trim()) {
-    listSuggestions(value);
+const handleInput = (e) => {
+  const { value } = e.target;
+  console.log('value', value);
+  if (value) {
+    fetchSuggestions(value);
   } else {
-    clearSuggestion();
+    suggestion.classList.remove("visible");
   }
 };
 
-const appendSuggestion = (e) => {
-  const { key } = e.target.dataset;
-  searchInput.value = key;
-  clearSuggestion();
-};
+const appendSearch = (e) => {
+    const {tets} = e.target.dataset;
+    input.value = tets;
+    suggestion.classList.remove("visible");
+}
 
 (() => {
-  searchInput.addEventListener("input", debounce(handleSearch));
-  suggestionWrap.addEventListener("click", appendSuggestion);
+  input.addEventListener("input", debounce(handleInput));
+//   input.addEventListener("input", handleInput);
+  suggestion.addEventListener('click', appendSearch)
 })();

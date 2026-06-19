@@ -1,3 +1,5 @@
-const FRUITS = ["Apple", "avocado", "banana", "mango", "berry", "grapes"];
+const FRUITS = ['Apple', 'Avacado', 'Mango', 'Banana', 'Ornage','Grapes']
 
-export { FRUITS };
+export {
+    FRUITS
+}
