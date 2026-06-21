@@ -3,13 +3,12 @@ import { getSuggestions, debounce } from "./utils.js";
 const input = document.getElementById("input");
 const suggestion = document.getElementById("suggestion");
 
-const listSuggestions = (suggestions) => {
+const appendSuggestions = (results) => {
   const fragment = document.createDocumentFragment();
-  suggestions.forEach((suggestion) => {
+  results.forEach((result) => {
     const div = document.createElement("div");
-    div.innerHTML = suggestion;
-    // in data-test, tets can be anything
-    div.setAttribute("data-tets", suggestion);
+    div.innerHTML = result;
+    div.setAttribute("data-key", result);
     fragment.appendChild(div);
   });
   suggestion.innerHTML = "";
@@ -17,15 +16,17 @@ const listSuggestions = (suggestions) => {
   suggestion.appendChild(fragment);
 };
 
-const fetchSuggestions = async (keyword) => {
-  const suggestions = await getSuggestions(keyword);
-  if (suggestions.length) {
-    listSuggestions(suggestions);
+const fetchSuggestions = async (value) => {
+  const searchResults = await getSuggestions(value);
+  if (searchResults.length) {
+    appendSuggestions(searchResults);
   }
 };
 
 const handleInput = (e) => {
   const { value } = e.target;
+  console.log("value", value);
+
   if (value) {
     fetchSuggestions(value);
   } else {
@@ -33,14 +34,13 @@ const handleInput = (e) => {
   }
 };
 
-const appendSearch = (e) => {
-  const { tets } = e.target.dataset;
-  input.value = tets;
+const handleSelect = (e) => {
+  const { key } = e.target.dataset;
+  input.value = key;
   suggestion.classList.remove("visible");
 };
 
 (() => {
   input.addEventListener("input", debounce(handleInput));
-  //   input.addEventListener("input", handleInput);
-  suggestion.addEventListener("click", appendSearch);
+  suggestion.addEventListener("click", handleSelect);
 })();

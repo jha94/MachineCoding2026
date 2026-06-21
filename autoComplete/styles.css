@@ -1,14 +1,13 @@
-.body{
-    display: inline-block;
+.body {
+  display: inline-block;
 }
 
-.suggestions{
-    display: none;
-    border: 1px solid grey;
-    max-width: 300px;
-    overflow-y: scroll;
+.suggestion {
+  display: none;
+  max-height: 300px;
+  border: 1px solid red;
 }
 
-.visible{
-    display: block;
+.visible {
+  display: block;
 }
