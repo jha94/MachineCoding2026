@@ -23,7 +23,7 @@ export const formConfig = {
   ],
   Interest: [
     {
-      lebel: "Hobbies",
+      label: "Hobbies",
       type: "checkbox",
       name: "hobbies",
       options: ["Reading", "Travelling", "Coding"],
@@ -45,7 +45,7 @@ export const formConfig = {
   ],
   Settings: [
     {
-      lebel: "Receive Newsletters",
+      label: "Receive  Newsletters",
       type: "dropdown",
       name: "newsletter",
       options: ["Yes", "No"],

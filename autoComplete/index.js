@@ -26,7 +26,6 @@ const fetchSuggestions = async (keyword) => {
 
 const handleInput = (e) => {
   const { value } = e.target;
-  console.log('value', value);
   if (value) {
     fetchSuggestions(value);
   } else {
@@ -35,13 +34,13 @@ const handleInput = (e) => {
 };
 
 const appendSearch = (e) => {
-    const {tets} = e.target.dataset;
-    input.value = tets;
-    suggestion.classList.remove("visible");
-}
+  const { tets } = e.target.dataset;
+  input.value = tets;
+  suggestion.classList.remove("visible");
+};
 
 (() => {
   input.addEventListener("input", debounce(handleInput));
-//   input.addEventListener("input", handleInput);
-  suggestion.addEventListener('click', appendSearch)
+  //   input.addEventListener("input", handleInput);
+  suggestion.addEventListener("click", appendSearch);
 })();
