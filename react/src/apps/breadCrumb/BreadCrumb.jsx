@@ -23,61 +23,40 @@ import { useState } from "react";
 const BreadCrumb = () => {
   const [path, setPath] = useState([]);
 
-  const getCurrentPath = (path) => {
-    let node = folderData;
+  const getFolders = (path) => {
+    let folders = folderData;
     for (let key of path) {
-      node = node.children[key];
+      folders = folders.children[key];
     }
-    return node;
+    return folders;
   };
-  const currentPath = getCurrentPath(path);
+  const folders = getFolders(path);
 
   return (
     <div>
       <h2>BreadCrumb</h2>
-      <nav
+      <div
         style={{
           display: "flex",
-          flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
         {folderData.name}
-        {path.map((value, index) => (
-          <p
-            onClick={() => {
-              setPath(path.slice(0, index));
-            }}
-          >
-            \ {`${value}`}
-          </p>
+        {path.map((pathData, index) => (
+          <p onClick={() => setPath(path.slice(0, index))}>{"/" + pathData}</p>
         ))}
-      </nav>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "10px",
-        }}
-      >
-        {Object.keys(currentPath.children).length ? (
-          Object.keys(currentPath.children).map((value) => {
+      </div>
+
+      {Object.keys(folders.children)?.length
+        ? Object.keys(folders.children).map((folder) => {
             return (
-              <p
-                onClick={() => {
-                  setPath([...path, value]);
-                }}
-              >
-                {" "}
-                {currentPath.children[value].name}
+              <p onClick={() => setPath([...path, folder])}>
+                {folders.children[folder].name}
               </p>
             );
           })
-        ) : (
-          <p>No Data Found</p>
-        )}
-      </div>
+        : "No data found"}
     </div>
   );
 };
