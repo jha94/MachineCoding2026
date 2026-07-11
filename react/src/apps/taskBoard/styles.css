@@ -1,0 +1,27 @@
+.headWrap{
+    display: flex;
+    height: 70px;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.button{
+    height: 30px;
+    width: 70px;
+    margin-top: 40px;
+}
+
+.board{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.taskWrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}

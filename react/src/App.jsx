@@ -16,10 +16,11 @@ const BreadCrumb = lazy(() => import("./apps/breadCrumb/BreadCrumb"));
 const StopWatch = lazy(() => import("./apps/stopWatch/StopWatch"));
 const DynamicGrid = lazy(() => import("./apps/dynamicGrid/DynamicGrid"));
 const UserDashboard = lazy(() => import("./apps/userDashboard/UserDashboard"));
-const Counter = lazy(()=>import('./apps/reducer/Counter'));
-const Top = lazy(()=>import('./apps/context/Top'));
-const MultiProgress = lazy(()=>import('./apps/progressBar/MultiProgressBar'));
-const MultiTabForm = lazy(()=>import('./apps/multiTabForms/MultiTabForm'))
+const Counter = lazy(() => import("./apps/reducer/Counter"));
+const Top = lazy(() => import("./apps/context/Top"));
+const MultiProgress = lazy(() => import("./apps/progressBar/MultiProgressBar"));
+const MultiTabForm = lazy(() => import("./apps/multiTabForms/MultiTabForm"));
+const TaskBoard = lazy(() => import("./apps/taskBoard/TaskBoard"));
 
 function App() {
   const [activeAccordian, setActiveAccordian] = useState(0);
@@ -47,7 +48,8 @@ function App() {
       {/* <Counter/> */}
       {/* <Top/> */}
       {/* <MultiProgress/> */}
-      <MultiTabForm/>
+      {/* <MultiTabForm/> */}
+      <TaskBoard />
     </Suspense>
   );
 }
